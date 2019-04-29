@@ -47,9 +47,12 @@
 				label="Editora" style="width:350px" />
 
 			<h:outputLabel value="Isbn: " for="itIsbnFilter" />
-			<h:input id="itIsbn"
+			<h:inputText id="itIsbn"
 				value="#{manageItemBiblioteca.itemBibliotecaFilter.iSBN}"
-				label="Isbn" style="width:350px" />
+				label="Isbn" style="width:350px" >
+				<f:validator validatorId="isbnValidator"></f:validator>
+				
+				</h:inputText>
 
 
 			<h:outputLabel value="Data Publicacao Min: "

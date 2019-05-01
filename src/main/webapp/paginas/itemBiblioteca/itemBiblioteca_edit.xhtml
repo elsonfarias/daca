@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
-	
+
 
 <f:metadata>
 	<f:viewParam name="item" value="#{itemBibliotecaEdit.item}" />
@@ -34,7 +34,8 @@
 
 		<h:panelGrid columns="2">
 			<f:facet name="header">ItemBiblioteca</f:facet>
-
+			
+			
 			<h:outputLabel value="Id:"
 				rendered="#{itemBibliotecaEdit.edicaoItemBiblioteca}" />
 			<h:outputLabel value="#{itemBibliotecaEdit.item.id}"
@@ -42,43 +43,52 @@
 
 			<h:outputLabel for="titulo" value="Titulo:" />
 			<h:inputText id="titulo" value="#{itemBibliotecaEdit.item.titulo}"
-				label="Titulo" />
+				label="Titulo" required="true" />
 
 			<h:outputLabel for="editora" value="Editora:" />
 			<h:inputText id="editora" value="#{itemBibliotecaEdit.item.editora}"
-				label="Editora" />
-				
+				label="Editora" required="true" />
+
 			<h:outputLabel for="iSBN" value="Isbn:" />
 			<h:inputText id="iSBN" value="#{itemBibliotecaEdit.item.iSBN}"
-				label="Isbn" />
-				
+				label="Isbn" required="true">
+				<f:validator validatorId="isbnValidador"></f:validator>
+			</h:inputText>
+
 			<h:outputLabel for="numeroDePaginas" value="Numero de Páginas:" />
-			<h:inputText id="numeroDePaginas" value="#{itemBibliotecaEdit.item.quantidadePaginas}" 
-			label="numeroDePaginas" required="true" />
-				
+			<h:inputText id="numeroDePaginas"
+				value="#{itemBibliotecaEdit.item.quantidadePaginas}"
+				label="numeroDePaginas" required="true" />
+
 			<h:outputLabel for="dataPublicacao" value="DataPublicacao:" />
-			<h:inputText id="dataPublicacao" value="#{itemBibliotecaEdit.item.dataPublicacao}"
-				label="dataPublicacao" required="true">
+			<h:inputText id="dataPublicacao"
+				value="#{itemBibliotecaEdit.item.dataPublicacao}"
+				label="dataPublicacao" required="true" >
 				<f:convertDateTime pattern="dd/MM/yyyy" />
 			</h:inputText>
 
 			<h:outputLabel for="descricao" value="Descricao:" />
-			<h:inputText id="descricao"	value="#{itemBibliotecaEdit.item.descricao}" 
-			label="descricao" required="true" />
-			
+			<h:inputText id="descricao"
+				value="#{itemBibliotecaEdit.item.descricao}" label="descricao"
+				required="true" />
+
 			<h:outputLabel for="assunto" value="Assunto:" />
 			<h:inputText id="assunto" value="#{itemBibliotecaEdit.item.assunto}"
 				label="Assunto" />
-				
+
 			<h:outputLabel for="tags" value="Tags:" />
 			<h:inputText id="tags" value="#{itemBibliotecaEdit.item.tags}"
 				label="Tags" />
-			
+
 			<h:outputLabel for="tipo" value="Tipo:" />
-			<h:selectOneMenu id="tipo" value="#{itemBibliotecaEdit.item.tipo}" label="Tipo" hideNoSelectionOption="true" required="true">
-				<f:selectItem itemLabel="Selecione" itemValue="#{null}"	noSelectionOption="true" />
-				<f:selectItems value="#{itemBibliotecaEdit.getTipos()}" var="g" itemLabel="#{g.nome}" itemValue="#{g}" />
-				<f:ajax	render="formEdit:pgLivro formEdit:pgLivro_de_bolso formEdit:pgCapa_dura formEdit:pgEbook formEdit:pgRevista formEdit:pgPeriódico" />
+			<h:selectOneMenu id="tipo" value="#{itemBibliotecaEdit.item.tipo}"
+				label="Tipo" hideNoSelectionOption="true" required="true">
+				<f:selectItem itemLabel="Selecione" itemValue="#{null}"
+					noSelectionOption="true" />
+				<f:selectItems value="#{itemBibliotecaEdit.getTipos()}" var="g"
+					itemLabel="#{g.nome}" itemValue="#{g}" />
+				<f:ajax
+					render="formEdit:pgLivro formEdit:pgLivro_de_bolso formEdit:pgCapa_dura formEdit:pgEbook formEdit:pgRevista formEdit:pgPeriódico" />
 			</h:selectOneMenu>
 
 			<h:panelGrid columns="2">

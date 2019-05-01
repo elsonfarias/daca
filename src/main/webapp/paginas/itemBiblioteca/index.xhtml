@@ -50,16 +50,14 @@
 			<h:inputText id="itIsbn"
 				value="#{manageItemBiblioteca.itemBibliotecaFilter.iSBN}"
 				label="Isbn" style="width:350px" >
-				<f:validator validatorId="isbnValidator"></f:validator>
-				
-				</h:inputText>
-
+				<f:validator validatorId="isbnValidador"></f:validator>
+			</h:inputText>
 
 			<h:outputLabel value="Data Publicacao Min: "
 				for="itDataPublicacaoMin:Filter" />
 			<h:inputText id="itDataPublicacaoMinFilter"
 				value="#{manageItemBiblioteca.itemBibliotecaFilter.dataPublicacaoMin}"
-				label="Data Publicacao Min" style="width:350px">
+				label="Data Publicacao Min"  style="width:350px">
 				<f:convertDateTime pattern="dd/MM/yyyy" />
 			</h:inputText>
 

@@ -1,39 +1,35 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:f="http://xmlns.jcp.org/jsf/core">
-<f:metadata>
-	<f:viewParam name="item" value="#{itemBibliotecaDelete.itemBiblioteca}" required="true" requiredMessage="Parâmetro 'item' é obrigatório na URL!" />
-</f:metadata>
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
-<h:head>
-	<title>Item delete</title>
-</h:head>
+<ui:composition template="/WEB-INF/templates/__commonLayout.xhtml">
 
-<h:body>
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam name="item"
+				value="#{itemBibliotecaDelete.itemBiblioteca}" required="true"
+				requiredMessage="Parâmetro 'item' é obrigatório na URL!" />
+		</f:metadata>
+	</ui:define>
 
-	<h:panelGrid columns="1" style="width : 100%; text-align:center"
-		border="1">
-		<h:link value="Biblioteca App" outcome="/index.xhtml" />
-	</h:panelGrid>
-	<h:panelGrid columns="6" style="width : 100%; text-align:center"
-		border="1">
-		<h:link outcome="/paginas/itemBiblioteca/index.xhtml" value="Página principal de itens" />
-		<h:link outcome="/paginas/itemBiblioteca/itemBiblioteca_edit.xhtml" value="Add item" />
-	</h:panelGrid>
+	<ui:define name="title">
+		Item delete
+	</ui:define>
 
-	<h:messages />
+	<ui:define name="content">
 
-	<h:form id="formDelete">
-		<h:outputText
-			value="Você deseja deletar #{itemBibliotecaDelete.itemBiblioteca.titulo} #{itemBibliotecaDelete.itemBiblioteca.titulo}?" />
-		<h:commandButton action="#{itemBibliotecaDelete.delete}" value="Delete" />
-		<h:button outcome="index.xhtml" value="Cancel" />
-	</h:form>
+		<h:messages />
 
-	<h:panelGrid columns="1" style="width : 100%; text-align:center"
-		border="1">
-		<h:outputText value="Biblioteca - v1.0" />
-	</h:panelGrid>
-</h:body>
+		<h:form id="formDelete">
+			<h:outputText
+				value="Você deseja deletar #{itemBibliotecaDelete.itemBiblioteca.titulo} #{itemBibliotecaDelete.itemBiblioteca.titulo}?" />
+			<h:commandButton action="#{itemBibliotecaDelete.delete}" value="Delete" />
+			<h:button outcome="index.xhtml" value="Cancel" />
+		</h:form>
+
+		</ui:define>
+
+</ui:composition>
 </html>

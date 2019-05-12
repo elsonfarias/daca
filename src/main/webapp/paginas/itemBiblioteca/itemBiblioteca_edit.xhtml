@@ -1,108 +1,98 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:f="http://xmlns.jcp.org/jsf/core">
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+<ui:composition template="/WEB-INF/templates/__commonLayout.xhtml">
 
 
-<f:metadata>
-	<f:viewParam name="item" value="#{itemBibliotecaEdit.item}" />
-	<f:viewAction action="#{itemBibliotecaEdit.init()}" />
-</f:metadata>
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam name="item" value="#{itemBibliotecaEdit.item}" />
+			<f:viewAction action="#{itemBibliotecaEdit.init()}" />
+		</f:metadata>
+	</ui:define>
 
+	<ui:define name="title">
+		ItemBiblioteca create/edit
+	</ui:define>
 
-<h:head>
-	<title>create/edit</title>
-</h:head>
+	<ui:define name="content">
+		<h:messages />
 
-<h:body>
-
-	<h:panelGrid columns="1" style="width : 100%; text-align:center"
-		border="1">
-		<h:link value="Biblioteca App" outcome="/index.xhtml" />
-	</h:panelGrid>
-	<h:panelGrid columns="2" style="width : 100%; text-align:center"
-		border="1">
-		<h:link outcome="/paginas/itemBiblioteca/index.xhtml"
-			value="Pagina principal item" />
-		<h:link outcome="/paginas/itemBiblioteca/itemBiblioteca_edit.xhtml"
-			value="Add item" />
-	</h:panelGrid>
-
-	<h:messages />
-
-	<h:form id="formEdit">
-
-		<h:panelGrid columns="2">
-			<f:facet name="header">ItemBiblioteca</f:facet>
-			
-			
-			<h:outputLabel value="Id:"
-				rendered="#{itemBibliotecaEdit.edicaoItemBiblioteca}" />
-			<h:outputLabel value="#{itemBibliotecaEdit.item.id}"
-				rendered="#{itemBibliotecaEdit.edicaoItemBiblioteca}" />
-
-			<h:outputLabel for="titulo" value="Titulo:" />
-			<h:inputText id="titulo" value="#{itemBibliotecaEdit.item.titulo}"
-				label="Titulo" required="true" />
-
-			<h:outputLabel for="editora" value="Editora:" />
-			<h:inputText id="editora" value="#{itemBibliotecaEdit.item.editora}"
-				label="Editora" required="true" />
-
-			<h:outputLabel for="iSBN" value="Isbn:" />
-			<h:inputText id="iSBN" value="#{itemBibliotecaEdit.item.iSBN}"
-				label="Isbn" required="true">
-				<f:validator validatorId="isbnValidador"></f:validator>
-			</h:inputText>
-
-			<h:outputLabel for="numeroDePaginas" value="Numero de Páginas:" />
-			<h:inputText id="numeroDePaginas"
-				value="#{itemBibliotecaEdit.item.quantidadePaginas}"
-				label="numeroDePaginas" required="true" />
-
-			<h:outputLabel for="dataPublicacao" value="DataPublicacao:" />
-			<h:inputText id="dataPublicacao"
-				value="#{itemBibliotecaEdit.item.dataPublicacao}"
-				label="dataPublicacao" required="true" >
-				<f:convertDateTime pattern="dd/MM/yyyy" />
-			</h:inputText>
-
-			<h:outputLabel for="descricao" value="Descricao:" />
-			<h:inputText id="descricao"
-				value="#{itemBibliotecaEdit.item.descricao}" label="descricao"
-				required="true" />
-
-			<h:outputLabel for="assunto" value="Assunto:" />
-			<h:inputText id="assunto" value="#{itemBibliotecaEdit.item.assunto}"
-				label="Assunto" />
-
-			<h:outputLabel for="tags" value="Tags:" />
-			<h:inputText id="tags" value="#{itemBibliotecaEdit.item.tags}"
-				label="Tags" />
-
-			<h:outputLabel for="tipo" value="Tipo:" />
-			<h:selectOneMenu id="tipo" value="#{itemBibliotecaEdit.item.tipo}"
-				label="Tipo" hideNoSelectionOption="true" required="true">
-				<f:selectItem itemLabel="Selecione" itemValue="#{null}"
-					noSelectionOption="true" />
-				<f:selectItems value="#{itemBibliotecaEdit.getTipos()}" var="g"
-					itemLabel="#{g.nome}" itemValue="#{g}" />
-				<f:ajax
-					render="formEdit:pgLivro formEdit:pgLivro_de_bolso formEdit:pgCapa_dura formEdit:pgEbook formEdit:pgRevista formEdit:pgPeriódico" />
-			</h:selectOneMenu>
+		<h:form id="formEdit">
 
 			<h:panelGrid columns="2">
-				<h:commandButton id="botaoSubmeter"
-					action="#{itemBibliotecaEdit.saveItemBiblioteca()}" value="Salvar" />
-				<h:button id="botaoCancelar" outcome="index.xhtml" value="Cancelar" />
+				<f:facet name="header">ItemBiblioteca</f:facet>
+
+
+				<h:outputLabel value="Id:"
+					rendered="#{itemBibliotecaEdit.edicaoItemBiblioteca}" />
+				<h:outputLabel value="#{itemBibliotecaEdit.item.id}"
+					rendered="#{itemBibliotecaEdit.edicaoItemBiblioteca}" />
+
+				<h:outputLabel for="titulo" value="Titulo:" />
+				<h:inputText id="titulo" value="#{itemBibliotecaEdit.item.titulo}"
+					label="Titulo" required="true" />
+
+				<h:outputLabel for="editora" value="Editora:" />
+				<h:inputText id="editora" value="#{itemBibliotecaEdit.item.editora}"
+					label="Editora" required="true" />
+
+				<h:outputLabel for="iSBN" value="Isbn:" />
+				<h:inputText id="iSBN" value="#{itemBibliotecaEdit.item.iSBN}"
+					label="Isbn" required="true">
+					<f:validator validatorId="isbnValidador"></f:validator>
+				</h:inputText>
+
+				<h:outputLabel for="numeroDePaginas" value="Numero de Páginas:" />
+				<h:inputText id="numeroDePaginas"
+					value="#{itemBibliotecaEdit.item.quantidadePaginas}"
+					label="numeroDePaginas" required="true" />
+
+				<h:outputLabel for="dataPublicacao" value="DataPublicacao:" />
+				<ui:include src="/WEB-INF/templates/_date.xhtml">
+					<ui:param name="id" value="dataPublicacao" />
+					<ui:param name="value"
+						value="#{itemBibliotecaEdit.item.dataPublicacao}" />
+					<ui:param name="label" value="DataPublicacao" />
+					<ui:param name="required" value="#{true}" />
+				</ui:include>
+
+
+				<h:outputLabel for="descricao" value="Descricao:" />
+				<h:inputText id="descricao"
+					value="#{itemBibliotecaEdit.item.descricao}" label="descricao"
+					required="true" />
+
+				<h:outputLabel for="assunto" value="Assunto:" />
+				<h:inputText id="assunto" value="#{itemBibliotecaEdit.item.assunto}"
+					label="Assunto" />
+
+				<h:outputLabel for="tags" value="Tags:" />
+				<h:inputText id="tags" value="#{itemBibliotecaEdit.item.tags}"
+					label="Tags" />
+
+				<h:outputLabel for="tipo" value="Tipo:" />
+				<h:selectOneMenu id="tipo" value="#{itemBibliotecaEdit.item.tipo}"
+					label="Tipo" hideNoSelectionOption="true" required="true">
+					<f:selectItem itemLabel="Selecione" itemValue="#{null}"
+						noSelectionOption="true" />
+					<f:selectItems value="#{itemBibliotecaEdit.getTipos()}" var="g"
+						itemLabel="#{g.nome}" itemValue="#{g}" />
+					<f:ajax
+						render="formEdit:pgLivro formEdit:pgLivro_de_bolso formEdit:pgCapa_dura formEdit:pgEbook formEdit:pgRevista formEdit:pgPeriódico" />
+				</h:selectOneMenu>
+
+				<h:panelGrid columns="2">
+					<h:commandButton id="botaoSubmeter"
+						action="#{itemBibliotecaEdit.saveItemBiblioteca()}" value="Salvar" />
+					<h:button id="botaoCancelar" outcome="index.xhtml" value="Cancelar" />
+				</h:panelGrid>
 			</h:panelGrid>
-		</h:panelGrid>
-	</h:form>
+		</h:form>
+	</ui:define>
+</ui:composition>
 
-	<h:panelGrid columns="1" style="width : 100%; text-align:center"
-		border="1">
-		<h:outputText value="Biblioteca App - v1.0" />
-	</h:panelGrid>
-
-</h:body>
 </html>

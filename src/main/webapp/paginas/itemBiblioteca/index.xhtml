@@ -1,153 +1,143 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:f="http://xmlns.jcp.org/jsf/core">
-<h:head>
-	<title>Manage ItemBiblioteca</title>
-</h:head>
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
-<h:body>
+<ui:composition template="/WEB-INF/templates/__commonLayout.xhtml">
 
-	<h:panelGrid columns="1" style="width : 100%; text-align:center"
-		border="1">
-		<h:link value="Biblioteca App" outcome="/index.xhtml" />
-	</h:panelGrid>
-	<h:panelGrid columns="6" style="width : 100%; text-align:center"
-		border="1">
-		<h:link outcome="/paginas/itemBiblioteca/index.xhtml"
-			value="Main page itemBiblioteca" />
+	<ui:define name="title">
+		Manage ItemBiblioteca
+	</ui:define>
 
-		<h:link outcome="/paginas/itemBiblioteca/itemBiblioteca_edit.xhtml"
-			value="Add itemBiblioteca" />
-		<h:link
-			outcome="/paginas/itemBiblioteca/itemBiblioteca_converter.xhtml"
-			value="Selecionar Item Biblioteca" />
-	</h:panelGrid>
+	<ui:define name="content">
 
-	<h:messages />
+		<h:messages />
 
-	<h:form id="formFilter">
+		<h:form id="formFilter">
 
-		<h:panelGrid columns="2">
-			<f:facet name="caption">
-				<h:outputText value="Filters" />
-			</f:facet>
-			<f:facet name="header">
-				<h:outputText value="ItemBiblioteca" />
-			</f:facet>
+			<h:panelGrid columns="2">
+				<f:facet name="caption">
+					<h:outputText value="Filters" />
+				</f:facet>
+				<f:facet name="header">
+					<h:outputText value="ItemBiblioteca" />
+				</f:facet>
 
-			<h:outputLabel value="Titulo: " for="itTituloFilter" />
-			<h:inputText id="itTituloFilter"
-				value="#{manageItemBiblioteca.itemBibliotecaFilter.titulo}"
-				label="Titulo" style="width:350px" />
+				<h:outputLabel value="Titulo: " for="itTituloFilter" />
+				<h:inputText id="itTituloFilter"
+					value="#{manageItemBiblioteca.itemBibliotecaFilter.titulo}"
+					label="Titulo" style="width:350px" />
 
-			<h:outputLabel value="Editora: " for="itEditoraFilter" />
-			<h:inputText id="itEditoraFilter"
-				value="#{manageItemBiblioteca.itemBibliotecaFilter.editora}"
-				label="Editora" style="width:350px" />
+				<h:outputLabel value="Editora: " for="itEditoraFilter" />
+				<h:inputText id="itEditoraFilter"
+					value="#{manageItemBiblioteca.itemBibliotecaFilter.editora}"
+					label="Editora" style="width:350px" />
 
-			<h:outputLabel value="Isbn: " for="itIsbnFilter" />
-			<h:inputText id="itIsbn"
-				value="#{manageItemBiblioteca.itemBibliotecaFilter.iSBN}"
-				label="Isbn" style="width:350px" >
-				<f:validator validatorId="isbnValidador"></f:validator>
-			</h:inputText>
+				<h:outputLabel value="Isbn: " for="itIsbnFilter" />
+				<h:inputText id="itIsbn"
+					value="#{manageItemBiblioteca.itemBibliotecaFilter.iSBN}"
+					label="Isbn" style="width:350px">
+					<f:validator validatorId="isbnValidador"></f:validator>
+				</h:inputText>
 
-			<h:outputLabel value="Data Publicacao Min: "
-				for="itDataPublicacaoMin:Filter" />
-			<h:inputText id="itDataPublicacaoMinFilter"
-				value="#{manageItemBiblioteca.itemBibliotecaFilter.dataPublicacaoMin}"
-				label="Data Publicacao Min"  style="width:350px">
-				<f:convertDateTime pattern="dd/MM/yyyy" />
-			</h:inputText>
+				<h:outputLabel value="Data Publicacao Min: "
+					for="itDataPublicacaoMin:Filter" />
+				<ui:include src="/WEB-INF/templates/_date.xhtml">
+					<ui:param name="id" value="itDataPublicacaoMinFilter" />
+					<ui:param name="value"
+						value="#{manageItemBiblioteca.itemBibliotecaFilter.dataPublicacaoMin}" />
+					<ui:param name="label" value="Data Publicacao Min" />
+					<ui:param name="style" value="width:350px" />
+				</ui:include>
 
-			<h:outputLabel value="Data Publicacao Max: "
-				for="itDataPublicacaoMaxFilter" />
-			<h:inputText id="itDataPublicacaoMaxFilter"
-				value="#{manageItemBiblioteca.itemBibliotecaFilter.dataPublicacaoMax}"
-				label="Data Publicacao Max" style="width:350px">
-				<f:convertDateTime pattern="dd/MM/yyyy" />
-			</h:inputText>
+				<h:outputLabel value="Data Publicacao Max: "
+					for="itDataPublicacaoMaxFilter" />
+				<ui:include src="/WEB-INF/templates/_date.xhtml">
+					<ui:param name="id" value="itDataPublicacaoMaxFilter" />
+					<ui:param name="value"
+						value="#{manageItemBiblioteca.itemBibliotecaFilter.dataPublicacaoMax}" />
+					<ui:param name="label" value="Data Publicacao Max" />
+					<ui:param name="style" value="width:350px" />
 
-			<h:outputLabel value="Tipo:" for="tipo" />
-			<h:selectOneMenu id="tipo"
-				value="#{manageItemBiblioteca.itemBibliotecaFilter.tipo}"
-				label="Tipo">
-				<f:selectItem itemLabel="Selecione" itemValue="#{null}" />
-				<f:selectItems value="#{manageItemBiblioteca.getTipos()}" var="g"
-					itemLabel="#{g.nome}" itemValue="#{g}" />
-			</h:selectOneMenu>
+				</ui:include>
 
-			<h:commandButton id="btnFiltrarBotao" value="Search"
-				action="#{manageItemBiblioteca.filtrar()}" />
-			<h:commandButton id="btnLimparBotao" value="Clean"
-				action="#{manageItemBiblioteca.limpar()}" />
-		</h:panelGrid>
+				<h:outputLabel value="Tipo:" for="tipo" />
+				<h:selectOneMenu id="tipo"
+					value="#{manageItemBiblioteca.itemBibliotecaFilter.tipo}"
+					label="Tipo">
+					<f:selectItem itemLabel="Selecione" itemValue="#{null}" />
+					<f:selectItems value="#{manageItemBiblioteca.getTipos()}" var="g"
+						itemLabel="#{g.nome}" itemValue="#{g}" />
+				</h:selectOneMenu>
 
-	</h:form>
+				<h:commandButton id="btnFiltrarBotao" value="Search"
+					action="#{manageItemBiblioteca.filtrar()}" />
+				<h:commandButton id="btnLimparBotao" value="Clean"
+					action="#{manageItemBiblioteca.limpar()}" />
+			</h:panelGrid>
 
-	<h:dataTable id="dataTableItemBiblioteca" border="1" var="item"
-		value="#{manageItemBiblioteca.item}">
-		<h:column>
-			<f:facet name="header">ID</f:facet>
-			<h:outputText value="#{item.id}" />
-		</h:column>
-		<h:column>
-			<f:facet name="header">Tipo</f:facet>
-			<h:outputText value="#{item.tipo.nome}" />
-		</h:column>
-		<h:column>
-			<f:facet name="header">Titulo</f:facet>
-			<h:outputText value="#{item.titulo}" />
-		</h:column>
-		<h:column>
-			<f:facet name="header">Editora</f:facet>
-			<h:outputText value="#{item.editora}" />
-		</h:column>
-		<h:column>
-			<f:facet name="header">Descricao</f:facet>
-			<h:outputText value="#{item.descricao}" />
-		</h:column>
-		<h:column>
-			<f:facet name="header">Numero de Paginas</f:facet>
-			<h:outputText value="#{item.quantidadePaginas}" />
-		</h:column>
-		<h:column>
-			<f:facet name="header">Data Publicacao</f:facet>
-			<h:outputText value="#{item.dataPublicacao}">
-				<f:convertDateTime pattern="dd/MM/yyyy" />
-			</h:outputText>
-		</h:column>
-		<h:column>
-			<f:facet name="header">ISBN</f:facet>
-			<h:outputText value="#{item.iSBN}" />
-		</h:column>
-		<h:column>
-			<f:facet name="header">Assunto</f:facet>
-			<h:outputText value="#{item.assunto}" />
-		</h:column>
-		<h:column>
-			<f:facet name="header">Tags</f:facet>
-			<h:outputText value="#{item.tags}" />
-		</h:column>
-		<h:column>
-			<f:facet name="header">Operations</f:facet>
-			<h:link outcome="itemBiblioteca_edit.xhtml"
-				value="Edit ItemBiblioteca">
-				<f:param name="item" value="#{item.id}" />
-			</h:link>
-			<h:outputText value=" " />
-			<h:link outcome="itemBiblioteca_delete.xhtml"
-				value="Delete ItemBiblioteca">
-				<f:param name="item" value="#{item.id}" />
-			</h:link>
-		</h:column>
-	</h:dataTable>
+		</h:form>
 
-	<h:panelGrid columns="1" style="width : 100%; text-align:center"
-		border="1">
-		<h:outputText value="Biblioteca App - v1.0" />
-	</h:panelGrid>
+		<h:dataTable id="dataTableItemBiblioteca" border="1" var="item"
+			value="#{manageItemBiblioteca.item}">
+			<h:column>
+				<f:facet name="header">ID</f:facet>
+				<h:outputText value="#{item.id}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Tipo</f:facet>
+				<h:outputText value="#{item.tipo.nome}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Titulo</f:facet>
+				<h:outputText value="#{item.titulo}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Editora</f:facet>
+				<h:outputText value="#{item.editora}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Descricao</f:facet>
+				<h:outputText value="#{item.descricao}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Numero de Paginas</f:facet>
+				<h:outputText value="#{item.quantidadePaginas}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Data Publicacao</f:facet>
+				<h:outputText value="#{item.dataPublicacao}">
+					<f:convertDateTime pattern="dd/MM/yyyy" />
+				</h:outputText>
+			</h:column>
+			<h:column>
+				<f:facet name="header">ISBN</f:facet>
+				<h:outputText value="#{item.iSBN}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Assunto</f:facet>
+				<h:outputText value="#{item.assunto}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Tags</f:facet>
+				<h:outputText value="#{item.tags}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Operations</f:facet>
+				<h:link outcome="itemBiblioteca_edit.xhtml"
+					value="Edit ItemBiblioteca">
+					<f:param name="item" value="#{item.id}" />
+				</h:link>
+				<h:outputText value=" " />
+				<h:link outcome="itemBiblioteca_delete.xhtml"
+					value="Delete ItemBiblioteca">
+					<f:param name="item" value="#{item.id}" />
+				</h:link>
+			</h:column>
+		</h:dataTable>
 
-</h:body>
+	</ui:define>
+
+</ui:composition>
 </html>
